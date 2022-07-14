@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@gbkwiatt/node-rpi-ws281x-native": "^1.0.1",
+    "@types/rpi-ws281x-native": "^1.0.0",
+    "yarn": "^1.22.19"
+  }
+}
