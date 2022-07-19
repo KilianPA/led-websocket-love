@@ -25,19 +25,18 @@ exports.initLedClient = () => {
 };
 
 exports.notify = (channel, ws281x) => {
-  let colorIndex = 0;
+  let index = 0;
   const notifyInterval = setInterval(() => {
-    for (let i = 0; i < NUM_LEDS; i++) {
-      channel.array[i] = colorwheel(colorIndex);
-    }
-    colorIndex += 1;
+    channel.array[index] = colorwheel(
+      Math.floor(Math.random() * (255 - 0 + 1) + 0)
+    );
+    index += 1;
     ws281x.render();
-  }, 100);
+  }, 15000 / NUM_LEDS);
   setTimeout(() => {
     clearInterval(notifyInterval);
     console.log("Finalize");
     ws281x.reset();
-    ws281x.finalize();
   }, 15000);
 };
 
