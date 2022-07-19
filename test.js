@@ -1,8 +1,8 @@
-const {initLedClient, notify} = require('./index')
+const { initLedClient, notify, animation } = require("./index");
 
 try {
-    const {colors, ws281x} = initLedClient()
-    notify(colors, ws281x);
+  const { channel, ws281x } = initLedClient();
+  notify(channel, ws281x);
 } catch (e) {
-    console.log('Error')
+  console.log(e);
 }
