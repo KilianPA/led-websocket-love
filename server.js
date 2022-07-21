@@ -1,5 +1,5 @@
 var WebSocket = require("ws");
-const address = "wss://female-growth.surge.sh/";
+const address = "wss://websocket-love.herokuapp.com/";
 const client = "k";
 var timeout = 1; // seconds
 const { initLedClient, notify, animation } = require("./index");
