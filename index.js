@@ -22,7 +22,7 @@ const rgb2Int = (r, g, b) => {
 const initLedClient = (options = {}) => {
   return ws281x(NUM_LEDS, {
     stripType: "ws2812",
-    brightness: options.brightness || 255,
+    brightness: parseInt(options.brightness) || 255,
   });
 };
 
