@@ -1,8 +1,9 @@
-const { initLedClient, notify, animation } = require("./index");
+const led = require("./index");
 
 try {
-  const { channel, ws281x } = initLedClient();
-  notify(channel, ws281x);
+  led.notify({
+    brightness: 150,
+  });
 } catch (e) {
   console.log(e);
 }

@@ -2,9 +2,8 @@ var WebSocket = require("ws");
 const address = "wss://websocket-love.herokuapp.com/";
 const client = "k";
 var timeout = 1; // seconds
-const { initLedClient, notify, animation } = require("./index");
+const led = require("./index");
 connect(address);
-const { channel, ws281x } = initLedClient();
 function connect(address) {
   let ws = new WebSocket(address);
   let timerTimeout = setTimeout(() => ws.terminate(), timeout * 1000); // force close unless cleared on 'open'
@@ -14,10 +13,13 @@ function connect(address) {
     // do your thing here, like ws.send(...);
   });
   ws.on("message", function incoming(message) {
-    console.log("received: %s", message);
-    let sender = message.toString().split(";")[1];
+    console.log(message.toString());
+    const sender = message.toString().split(";")[1];
+    const brightness = message.toString().split(";")[2];
     if (sender !== client) {
-      notify(channel, ws281x);
+      led.notify();
+    } else {
+      led.sendingAnimation({ brightness });
     }
   });
   ws.on("close", () => {
@@ -32,18 +34,4 @@ function connect(address) {
     console.error("Websocket error: " + reason.toString())
   );
   return ws;
-}
-
-function getQueryParams(qs) {
-  qs = qs.split("+").join(" ");
-
-  var params = {},
-    tokens,
-    re = /[?&]?([^=]+)=([^&]*)/g;
-
-  while ((tokens = re.exec(qs))) {
-    params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
-  }
-
-  return params;
 }
